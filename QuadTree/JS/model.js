@@ -1,11 +1,14 @@
-class Point{
+class Point
+{
     constructor(x,y)
     {
         this.x = x;
         this.y = y;
     }
 }
-class Rectangle{
+
+class Rectangle
+{
     constructor(x, y, w, h)
     {
         //x,y are the coordinates of the center of the rectangle
@@ -18,7 +21,8 @@ class Rectangle{
     }
 }
 
-class QuadTree{
+class QuadTree
+{
     constructor(boundary, capacity)
     {
         this.boundary = boundary;
@@ -36,7 +40,8 @@ class QuadTree{
         return (point.x >= x - w && point.x <= x + w && point.y >= y-h && point.y <= y + h)
     }
     
-    insert(point) {
+    insert(point) 
+    {
         if(!this.contains(point))
         return;
         
@@ -77,5 +82,27 @@ class QuadTree{
         this.bottomRight = new QuadTree(bottomRight_rectangle,this.capacity);
 
         this.divided = true;
+    }
+
+    show()
+    {
+        stroke(255);
+        strokeWeight(1);
+        noFill();
+        rectMode(CENTER);
+        rect(this.boundary.x, this.boundary.y, this.boundary.w*2, this.boundary.h*2);
+
+        if(this.divided)
+        {
+            this.topLeft.show();
+            this.topRight.show();
+            this.bottomRight.show();
+            this.bottomLeft.show();
+        }
+
+        for(let p of this.points){
+            strokeWeight(4);
+            point(p.x,p.y);
+        }
     }
 }
